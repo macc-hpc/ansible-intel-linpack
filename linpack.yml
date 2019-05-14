@@ -1,0 +1,44 @@
+- hosts: all
+  tasks:
+    - name: Copy Intel LINPACK Benchmark
+      copy:
+        src: ~/ansible/bin/l_mklb_p_2017.2.015.tgz 
+        dest: ~/linpack/
+      tags:
+        - install 
+    - name: Copy Intel MPI
+      copy:
+        src: ~/ansible/bin/l_mpi_2019.3.199.tgz 
+        dest: ~/linpack/
+      tags:
+        - install 
+    - name: Copy Intel MPI silent configuration file
+      copy:
+        src: ~/ansible/bin/silent-mpi.cfg
+        dest: ~/linpack/
+      tags:
+        - install 
+    - name: Copy hosts file
+      copy:
+        src: ~/ansible/hosts
+        dest: ~/linpack/
+    - name: Unarchive Intel LINPACK Benchmark
+      unarchive:
+        src: ~/linpack/l_mklb_p_2017.2.015.tgz
+        dest: ~/linpack/
+      tags:
+        - install 
+    - name: Unarchive Intel MPI
+      unarchive:
+        src: ~/linpack/l_mpi_2019.3.199.tgz
+        dest: ~/linpack/
+      tags:
+        - install 
+    - name: Install Intel MPI
+      shell: ~/linpack/l_mpi_2019.3.199/install.sh -s ~/linpack/silent-mpi.cfg
+      tags:
+        - install 
+    - name: Set up the Intel MPI Library environment  
+      shell: . ./intel/compilers_and_libraries_2019.3.199/linux/mpi/intel64/bin/mpivars.sh 
+      tags:
+        - install 

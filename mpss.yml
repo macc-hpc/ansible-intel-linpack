@@ -1,0 +1,8 @@
+- hosts: all
+  tasks:
+    - copy:
+        src: ~/ansible/mpss-modules-3.10.0-957.el7.x86_64-3.8.5-1.x86_64.rpm 
+        dest: ~/
+    - copy:
+        src: ~/ansible/mpss-3.8.5-linux.tar 
+        dest: ~/
